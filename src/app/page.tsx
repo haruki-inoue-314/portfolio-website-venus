@@ -44,7 +44,7 @@ export default function Home() {
           <p className="my-2">
             iOSアプリエンジニア ときどき Webフロントエンジニア
           </p>
-          <div className="my-2">
+          <div className="mt-2 mb-4">
             <div className="flex flex-wrap">
               {acounts.map((acount) => (
                 <Link
