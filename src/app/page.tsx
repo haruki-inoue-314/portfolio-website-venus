@@ -1,31 +1,44 @@
 import SelfIntroduction from "@/components/SelfIntroduction";
+import PortfolioItem from "@/components/PortfolioItem";
 import Link from "next/link";
+import { fetchPortfolio } from "@/libs/client";
 
-export default function Home() {
+export default async function Home() {
+  const { contents } = await fetchPortfolio();
+
+  console.log(contents);
+
+  type Account = {
+    title: string;
+    to: string;
+    bgColor: string;
+    fontColor: string;
+  };
+
   const acounts: Account[] = [
     {
       title: "Twitter",
       to: "https://twitter.com/kyotonagoya1476",
       bgColor: "bg-[#1DA1F2]",
-      fontCcolor: "text-white",
+      fontColor: "text-white",
     },
     {
       title: "Qiita",
       to: "https://qiita.com/kyotonagoya",
       bgColor: "bg-[#55c550]",
-      fontCcolor: "text-white",
+      fontColor: "text-white",
     },
     {
       title: "GitHub",
       to: "https://github.com/k15015kk",
       bgColor: "bg-[#171515]",
-      fontCcolor: "text-white",
+      fontColor: "text-white",
     },
     {
       title: "Wantedly",
       to: "https://www.wantedly.com/id/kyotonagoya",
       bgColor: "bg-[#f0f0f0]",
-      fontCcolor: "text-black",
+      fontColor: "text-black",
     },
   ];
 
@@ -49,7 +62,7 @@ export default function Home() {
               {acounts.map((acount) => (
                 <Link
                   href={acount.to}
-                  className={`${acount.bgColor} ${acount.fontCcolor} mx-1 my-1 px-3 py-1 font-bold shadow rounded hover:opacity-50`}
+                  className={`${acount.bgColor} ${acount.fontColor} mx-1 my-1 px-3 py-1 font-bold shadow rounded hover:opacity-50`}
                   key={acount.title}
                 >
                   {acount.title}
@@ -60,6 +73,32 @@ export default function Home() {
         </div>
 
         <SelfIntroduction />
+
+        <div className="relative max-w-[960px] m-auto p-4">
+          <h2 className="text-2xl text-gray-900 font-bold my-2 mx-2">
+            Portfolio
+          </h2>
+          <div className="flex flex-wrap">
+            {contents.map(
+              (contents: {
+                id: string;
+                thumbnail: { url: string };
+                title: string;
+                abstract: string;
+                link: string;
+              }) => {
+                return (
+                  <PortfolioItem
+                    thumbnail={contents.thumbnail.url}
+                    title={contents.title}
+                    abstract={contents.abstract}
+                    link={contents.link}
+                  />
+                );
+              }
+            )}
+          </div>
+        </div>
       </main>
     </div>
   );
