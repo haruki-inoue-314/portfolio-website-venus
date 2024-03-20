@@ -13,7 +13,7 @@ export default function PortfolioItem({
 }: Props) {
   return (
     <div className="w-[320px] bg-slate-50 m-2 rounded shadow hover:opacity-50">
-      <a href={link}>
+      <a href={link} target="_blank">
         <div className="w-[320px] h-[180px]">
           <img
             src={thumbnail}
