@@ -89,6 +89,7 @@ export default async function Home() {
               }) => {
                 return (
                   <PortfolioItem
+                    key={contents.id}
                     thumbnail={contents.thumbnail.url}
                     title={contents.title}
                     abstract={contents.abstract}
